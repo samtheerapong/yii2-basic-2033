@@ -27,7 +27,7 @@ use app\modules\tickets\models\TicketsPriority;
     <?= $form->field($model, 'request_at')->widget(
         DatePicker::class, [
         'language' => 'th',
-        'options' => ['placeholder' => 'Select issue date ...'],
+        'options' => ['placeholder' => 'Select date ...'],
         'pluginOptions' => [
             'format' => 'yyyy-mm-dd',
             'todayHighlight' => true,
@@ -35,7 +35,6 @@ use app\modules\tickets\models\TicketsPriority;
         ]
     ]
     ); ?>
-
 
     <?= $form->field($model, 'tickets_type_id')->dropDownlist(ArrayHelper::map(TicketsType::find()->all(), 'id', 'tickets_type'), ['prompt' => 'กรุณาเลือก ...',]) ?>
 

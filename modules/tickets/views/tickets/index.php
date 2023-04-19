@@ -55,20 +55,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 ])
             ],
             [
-                'attribute' => 'tickets_type_id',
-                'format' => 'html',
-                'value' => function ($model) {
-                    return '<span class="badge" style="background-color:' . $model->ticketsType->color . ';"><b>' . $model->ticketsType->tickets_type . '</b></span>';
-                },
-                'filter' => Html::activeDropDownList($searchModel, 'tickets_type_id', ArrayHelper::map(TicketsType::find()->all(), 'id', 'tickets_type'), ['class' => 'form-control', 'prompt' => 'ทั้งหมด...'])
-            ],
-            [
                 'attribute' => 'location_id',
                 'format' => 'html',
                 'value' => function ($model) {
                     return $model->location->location;
                 },
                 'filter' => Html::activeDropDownList($searchModel, 'location_id', ArrayHelper::map(Location::find()->all(), 'id', 'location'), ['class' => 'form-control', 'prompt' => 'ทั้งหมด...'])
+            ],
+            [
+                'attribute' => 'tickets_type_id',
+                'format' => 'html',
+                'value' => function ($model) {
+                    return '<span class="badge" style="background-color:' . $model->ticketsType->color . ';"><b>' . $model->ticketsType->tickets_type . '</b></span>';
+                },
+                'filter' => Html::activeDropDownList($searchModel, 'tickets_type_id', ArrayHelper::map(TicketsType::find()->all(), 'id', 'tickets_type'), ['class' => 'form-control', 'prompt' => 'ทั้งหมด...'])
             ],
             [
                 'attribute' => 'tickets_urgency_id',
@@ -89,9 +89,9 @@ $this->params['breadcrumbs'][] = $this->title;
             // ['class' => 'yii\grid\ActionColumn'],
             [
                 'class' => 'kartik\grid\ActionColumn',
-                'options' => ['style' => 'width:100px;'],
+                'options' => ['style' => 'width:120px;'],
                 'buttonOptions' => ['class' => 'btn btn-default'],
-                'template' => '<div class="btn-group btn-group-xs text-center" role="group"> {view} {update} {delete}</div>'
+                'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {view} {update} {delete}</div>'
             ],
         ],
     ]); ?>

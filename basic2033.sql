@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Apr 19, 2023 at 09:38 AM
--- Server version: 5.7.40
--- PHP Version: 7.4.33
+-- Host: localhost:3306
+-- Generation Time: Apr 19, 2023 at 11:53 AM
+-- Server version: 5.7.33
+-- PHP Version: 7.4.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -27,13 +27,10 @@ SET time_zone = "+00:00";
 -- Table structure for table `auth_assignment`
 --
 
-DROP TABLE IF EXISTS `auth_assignment`;
-CREATE TABLE IF NOT EXISTS `auth_assignment` (
+CREATE TABLE `auth_assignment` (
   `item_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `user_id` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` int(11) DEFAULT NULL,
-  PRIMARY KEY (`item_name`,`user_id`),
-  KEY `idx-auth_assignment-user_id` (`user_id`)
+  `created_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -55,18 +52,14 @@ INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
 -- Table structure for table `auth_item`
 --
 
-DROP TABLE IF EXISTS `auth_item`;
-CREATE TABLE IF NOT EXISTS `auth_item` (
+CREATE TABLE `auth_item` (
   `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `type` smallint(6) NOT NULL,
   `description` text COLLATE utf8_unicode_ci,
   `rule_name` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
   `data` blob,
   `created_at` int(11) DEFAULT NULL,
-  `updated_at` int(11) DEFAULT NULL,
-  PRIMARY KEY (`name`),
-  KEY `rule_name` (`rule_name`),
-  KEY `idx-auth_item-type` (`type`)
+  `updated_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -98,12 +91,9 @@ INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `cr
 -- Table structure for table `auth_item_child`
 --
 
-DROP TABLE IF EXISTS `auth_item_child`;
-CREATE TABLE IF NOT EXISTS `auth_item_child` (
+CREATE TABLE `auth_item_child` (
   `parent` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `child` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`parent`,`child`),
-  KEY `child` (`child`)
+  `child` varchar(64) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -133,13 +123,11 @@ INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
 -- Table structure for table `auth_rule`
 --
 
-DROP TABLE IF EXISTS `auth_rule`;
-CREATE TABLE IF NOT EXISTS `auth_rule` (
+CREATE TABLE `auth_rule` (
   `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `data` blob,
   `created_at` int(11) DEFAULT NULL,
-  `updated_at` int(11) DEFAULT NULL,
-  PRIMARY KEY (`name`)
+  `updated_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -148,14 +136,12 @@ CREATE TABLE IF NOT EXISTS `auth_rule` (
 -- Table structure for table `location`
 --
 
-DROP TABLE IF EXISTS `location`;
-CREATE TABLE IF NOT EXISTS `location` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `location` (
+  `id` int(11) NOT NULL,
   `code` varchar(45) DEFAULT NULL COMMENT 'รหัส',
   `location` varchar(100) DEFAULT NULL COMMENT 'สถานที่',
-  `color` varchar(10) DEFAULT NULL COMMENT 'สี',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+  `color` varchar(10) DEFAULT NULL COMMENT 'สี'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `location`
@@ -176,11 +162,9 @@ INSERT INTO `location` (`id`, `code`, `location`, `color`) VALUES
 -- Table structure for table `migration`
 --
 
-DROP TABLE IF EXISTS `migration`;
-CREATE TABLE IF NOT EXISTS `migration` (
+CREATE TABLE `migration` (
   `version` varchar(180) NOT NULL,
-  `apply_time` int(11) DEFAULT NULL,
-  PRIMARY KEY (`version`)
+  `apply_time` int(11) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -212,8 +196,7 @@ INSERT INTO `migration` (`version`, `apply_time`) VALUES
 -- Table structure for table `profile`
 --
 
-DROP TABLE IF EXISTS `profile`;
-CREATE TABLE IF NOT EXISTS `profile` (
+CREATE TABLE `profile` (
   `user_id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `public_email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -222,8 +205,7 @@ CREATE TABLE IF NOT EXISTS `profile` (
   `location` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `website` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `bio` text COLLATE utf8_unicode_ci,
-  `timezone` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`user_id`)
+  `timezone` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -232,9 +214,9 @@ CREATE TABLE IF NOT EXISTS `profile` (
 
 INSERT INTO `profile` (`user_id`, `name`, `public_email`, `gravatar_email`, `gravatar_id`, `location`, `website`, `bio`, `timezone`) VALUES
 (1, 'แอดมิน', '', '', 'd41d8cd98f00b204e9800998ecf8427e', '', '', '', 'Pacific/Kiritimati'),
-(2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 'ผู้ใช้งาน', '', '', 'd41d8cd98f00b204e9800998ecf8427e', '', '', '', NULL),
+(3, 'ทีมช่าง', '', '', 'd41d8cd98f00b204e9800998ecf8427e', '', '', '', NULL),
+(4, 'ธีรพงศ์ ขันตา', '', '', 'd41d8cd98f00b204e9800998ecf8427e', '', '', '', NULL),
 (5, 'สาวิกา พินิจ', '', '', 'd41d8cd98f00b204e9800998ecf8427e', '', '', '', NULL),
 (6, 'สราวุฒิ โฆษิตเกียรติคุณ', '', '', 'd41d8cd98f00b204e9800998ecf8427e', '', '', '', NULL);
 
@@ -244,13 +226,11 @@ INSERT INTO `profile` (`user_id`, `name`, `public_email`, `gravatar_email`, `gra
 -- Table structure for table `request_sources`
 --
 
-DROP TABLE IF EXISTS `request_sources`;
-CREATE TABLE IF NOT EXISTS `request_sources` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `request_sources` (
+  `id` int(11) NOT NULL,
   `request_sources` varchar(45) DEFAULT NULL COMMENT 'แหล่งที่มา',
-  `color` varchar(10) DEFAULT NULL COMMENT 'สี',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  `color` varchar(10) DEFAULT NULL COMMENT 'สี'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `request_sources`
@@ -267,9 +247,8 @@ INSERT INTO `request_sources` (`id`, `request_sources`, `color`) VALUES
 -- Table structure for table `social_account`
 --
 
-DROP TABLE IF EXISTS `social_account`;
-CREATE TABLE IF NOT EXISTS `social_account` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `social_account` (
+  `id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `provider` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `client_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -277,11 +256,7 @@ CREATE TABLE IF NOT EXISTS `social_account` (
   `code` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` int(11) DEFAULT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `username` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `account_unique` (`provider`,`client_id`),
-  UNIQUE KEY `account_unique_code` (`code`),
-  KEY `fk_user_account` (`user_id`)
+  `username` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -290,18 +265,15 @@ CREATE TABLE IF NOT EXISTS `social_account` (
 -- Table structure for table `tasks`
 --
 
-DROP TABLE IF EXISTS `tasks`;
-CREATE TABLE IF NOT EXISTS `tasks` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tasks` (
+  `id` int(11) NOT NULL,
   `tickets_id` int(11) DEFAULT NULL COMMENT 'Ticket No.',
   `started_at` varchar(45) DEFAULT NULL COMMENT 'วันที่เริ่ม',
   `finished_at` varchar(45) DEFAULT NULL COMMENT 'วันที่เสร็จ',
   `details` text COMMENT 'รายละเอียด',
   `actor` varchar(200) DEFAULT NULL COMMENT 'ผู้ดำเนินการ',
-  `image` text COMMENT 'รูปภาพ',
-  PRIMARY KEY (`id`),
-  KEY `fk_tasks_tickets1_idx` (`tickets_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+  `image` text COMMENT 'รูปภาพ'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tasks`
@@ -323,9 +295,8 @@ INSERT INTO `tasks` (`id`, `tickets_id`, `started_at`, `finished_at`, `details`,
 -- Table structure for table `tickets`
 --
 
-DROP TABLE IF EXISTS `tickets`;
-CREATE TABLE IF NOT EXISTS `tickets` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tickets` (
+  `id` int(11) NOT NULL,
   `request_at` varchar(45) DEFAULT NULL COMMENT 'วันที่เปิด',
   `request_by` varchar(100) DEFAULT NULL COMMENT 'ผู้แจ้ง',
   `updated_by` varchar(45) DEFAULT NULL COMMENT 'ผู้ปรับปรุง',
@@ -341,34 +312,26 @@ CREATE TABLE IF NOT EXISTS `tickets` (
   `tickets_impact_id` int(11) DEFAULT NULL COMMENT 'ผลกระทบ',
   `tickets_priority_id` int(11) DEFAULT NULL COMMENT 'ความสำคัญ',
   `location_id` int(11) DEFAULT NULL COMMENT 'สถานที่',
-  `image` text COMMENT 'รูปภาพ',
-  PRIMARY KEY (`id`),
-  KEY `fk_tickets_tickets_type1_idx` (`tickets_type_id`),
-  KEY `fk_tickets_tickets_status1_idx` (`tickets_status_id`),
-  KEY `fk_tickets_request_sources1_idx` (`request_sources_id`),
-  KEY `fk_tickets_tickets_urgency1_idx` (`tickets_urgency_id`),
-  KEY `fk_tickets_tickets_impact1_idx` (`tickets_impact_id`),
-  KEY `fk_tickets_location1_idx` (`location_id`),
-  KEY `fk_tickets_tickets_priority1_idx` (`tickets_priority_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+  `image` text COMMENT 'รูปภาพ'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tickets`
 --
 
 INSERT INTO `tickets` (`id`, `request_at`, `request_by`, `updated_by`, `created_at`, `updated_at`, `tickets_number`, `items`, `descriptions`, `tickets_type_id`, `tickets_status_id`, `request_sources_id`, `tickets_urgency_id`, `tickets_impact_id`, `tickets_priority_id`, `location_id`, `image`) VALUES
-(2, '2023-04-18', NULL, '6', NULL, '1681896408', NULL, NULL, NULL, 1, 2, 1, 2, 1, 1, 3, ''),
-(3, '2023-04-19', NULL, '5', NULL, '1681896514', NULL, NULL, NULL, 1, 3, 3, 2, 3, 2, 2, ''),
-(4, '2023-04-20', NULL, '1', NULL, '1681896229', NULL, NULL, NULL, 2, 2, 2, 1, 1, 3, 4, ''),
-(5, '2023-04-20', NULL, '1', NULL, '1681896233', NULL, NULL, NULL, 2, 4, 3, 3, 3, 3, 5, ''),
-(6, '2023-04-19', NULL, '5', NULL, '1681896522', NULL, NULL, NULL, 1, 1, 1, 3, 2, 2, 2, ''),
-(7, '2023-04-19', NULL, '1', NULL, '1681896240', NULL, NULL, NULL, 1, 1, 1, 1, 1, 1, 3, ''),
-(8, '2023-04-06', NULL, '1', NULL, '1681896298', NULL, NULL, NULL, 2, 2, 2, 1, 1, 1, 3, ''),
-(9, '2023-04-07', NULL, '6', NULL, '1681896447', NULL, NULL, NULL, 2, 2, 2, 1, 1, 1, 4, ''),
-(10, '2023-04-19', NULL, '6', NULL, '1681896429', NULL, NULL, NULL, 1, 3, 1, 1, 1, 1, 3, ''),
-(11, '2023-04-20', NULL, '1', NULL, '1681896311', NULL, NULL, NULL, 2, 4, 2, 1, 1, 1, 2, ''),
-(12, '2023-04-20', NULL, '5', NULL, '1681896530', NULL, NULL, NULL, 1, 4, 1, 1, 3, 1, 1, ''),
-(13, '2023-04-14', NULL, '1', '1681895137', '1681895408', NULL, NULL, NULL, 1, 2, 2, 2, 3, 1, 3, ''),
+(2, '2023-04-18', '1', '6', NULL, '1681896408', NULL, NULL, NULL, 1, 2, 1, 2, 1, 1, 3, ''),
+(3, '2023-04-19', '6', '5', NULL, '1681896514', NULL, NULL, NULL, 1, 3, 3, 2, 3, 2, 2, ''),
+(4, '2023-04-20', '2', '1', NULL, '1681896229', NULL, NULL, NULL, 2, 2, 2, 1, 1, 3, 4, ''),
+(5, '2023-04-20', '3', '1', NULL, '1681896233', NULL, NULL, NULL, 2, 4, 3, 3, 3, 3, 5, ''),
+(6, '2023-04-19', '4', '5', NULL, '1681896522', NULL, NULL, NULL, 1, 1, 1, 3, 2, 2, 2, ''),
+(7, '2023-04-19', '5', '1', NULL, '1681896240', NULL, NULL, NULL, 1, 1, 1, 1, 1, 1, 3, ''),
+(8, '2023-04-06', '6', '1', NULL, '1681896298', NULL, NULL, NULL, 2, 2, 2, 1, 1, 1, 3, ''),
+(9, '2023-04-07', '2', '6', NULL, '1681896447', NULL, NULL, NULL, 2, 2, 2, 1, 1, 1, 4, ''),
+(10, '2023-04-19', '3', '6', NULL, '1681896429', NULL, NULL, NULL, 1, 3, 1, 1, 1, 1, 3, ''),
+(11, '2023-04-20', '4', '1', NULL, '1681896311', NULL, NULL, NULL, 2, 4, 2, 1, 1, 1, 2, ''),
+(12, '2023-04-20', '5', '5', NULL, '1681896530', NULL, NULL, NULL, 1, 4, 1, 1, 3, 1, 1, ''),
+(13, '2023-04-14', '6', '1', '1681895137', '1681895408', NULL, NULL, NULL, 1, 2, 2, 2, 3, 1, 3, ''),
 (14, '2023-04-04', '1', '1', '1681896691', '1681896691', NULL, NULL, NULL, 1, 1, 2, 1, 3, 1, 7, '');
 
 -- --------------------------------------------------------
@@ -377,13 +340,11 @@ INSERT INTO `tickets` (`id`, `request_at`, `request_by`, `updated_by`, `created_
 -- Table structure for table `tickets_impact`
 --
 
-DROP TABLE IF EXISTS `tickets_impact`;
-CREATE TABLE IF NOT EXISTS `tickets_impact` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tickets_impact` (
+  `id` int(11) NOT NULL,
   `tickets_impact` varchar(45) DEFAULT NULL COMMENT 'ผลกระทบ',
-  `color` varchar(10) DEFAULT NULL COMMENT 'สี',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  `color` varchar(10) DEFAULT NULL COMMENT 'สี'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tickets_impact`
@@ -401,13 +362,11 @@ INSERT INTO `tickets_impact` (`id`, `tickets_impact`, `color`) VALUES
 -- Table structure for table `tickets_priority`
 --
 
-DROP TABLE IF EXISTS `tickets_priority`;
-CREATE TABLE IF NOT EXISTS `tickets_priority` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tickets_priority` (
+  `id` int(11) NOT NULL,
   `tickets_priority` varchar(45) DEFAULT NULL COMMENT 'ความสำคัญ',
-  `color` varchar(10) DEFAULT NULL COMMENT 'สี',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  `color` varchar(10) DEFAULT NULL COMMENT 'สี'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tickets_priority`
@@ -425,13 +384,11 @@ INSERT INTO `tickets_priority` (`id`, `tickets_priority`, `color`) VALUES
 -- Table structure for table `tickets_status`
 --
 
-DROP TABLE IF EXISTS `tickets_status`;
-CREATE TABLE IF NOT EXISTS `tickets_status` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tickets_status` (
+  `id` int(11) NOT NULL,
   `tickets_status` varchar(45) DEFAULT NULL COMMENT 'สถานะ',
-  `color` varchar(10) DEFAULT NULL COMMENT 'สี',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  `color` varchar(10) DEFAULT NULL COMMENT 'สี'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tickets_status`
@@ -449,13 +406,11 @@ INSERT INTO `tickets_status` (`id`, `tickets_status`, `color`) VALUES
 -- Table structure for table `tickets_type`
 --
 
-DROP TABLE IF EXISTS `tickets_type`;
-CREATE TABLE IF NOT EXISTS `tickets_type` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tickets_type` (
+  `id` int(11) NOT NULL,
   `tickets_type` varchar(45) DEFAULT NULL COMMENT 'สถานะ',
-  `color` varchar(10) DEFAULT NULL COMMENT 'สี',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  `color` varchar(10) DEFAULT NULL COMMENT 'สี'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tickets_type`
@@ -471,13 +426,11 @@ INSERT INTO `tickets_type` (`id`, `tickets_type`, `color`) VALUES
 -- Table structure for table `tickets_urgency`
 --
 
-DROP TABLE IF EXISTS `tickets_urgency`;
-CREATE TABLE IF NOT EXISTS `tickets_urgency` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tickets_urgency` (
+  `id` int(11) NOT NULL,
   `tickets_urgency` varchar(45) DEFAULT NULL COMMENT 'ความเร่งรีบ',
-  `color` varchar(10) DEFAULT NULL COMMENT 'สี',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  `color` varchar(10) DEFAULT NULL COMMENT 'สี'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tickets_urgency`
@@ -495,13 +448,11 @@ INSERT INTO `tickets_urgency` (`id`, `tickets_urgency`, `color`) VALUES
 -- Table structure for table `token`
 --
 
-DROP TABLE IF EXISTS `token`;
-CREATE TABLE IF NOT EXISTS `token` (
+CREATE TABLE `token` (
   `user_id` int(11) NOT NULL,
   `code` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` int(11) NOT NULL,
-  `type` smallint(6) NOT NULL,
-  UNIQUE KEY `token_unique` (`user_id`,`code`,`type`)
+  `type` smallint(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -518,9 +469,8 @@ INSERT INTO `token` (`user_id`, `code`, `created_at`, `type`) VALUES
 -- Table structure for table `user`
 --
 
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE IF NOT EXISTS `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
   `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password_hash` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
@@ -534,23 +484,219 @@ CREATE TABLE IF NOT EXISTS `user` (
   `flags` int(11) NOT NULL DEFAULT '0',
   `last_login_at` int(11) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT '10',
-  `role` int(11) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `user_unique_username` (`username`),
-  UNIQUE KEY `user_unique_email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `role` int(11) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`id`, `username`, `email`, `password_hash`, `auth_key`, `confirmed_at`, `unconfirmed_email`, `blocked_at`, `registration_ip`, `created_at`, `updated_at`, `flags`, `last_login_at`, `status`, `role`) VALUES
-(1, 'admin', 'sam47290800@gmail.com', '$2y$12$j/MmNOUbN3rI/SrHJnlZTOyFm8YuHsB3KbRqdwnFt0PayZcWcPECi', 'MVeu5xESZPupQjSOeeAHp5v452fQQkbp', 1681800947, NULL, NULL, '::1', 1681800900, 1681800900, 0, 1681896639, 10, 9),
+(1, 'admin', 'sam47290800@gmail.com', '$2y$12$j/MmNOUbN3rI/SrHJnlZTOyFm8YuHsB3KbRqdwnFt0PayZcWcPECi', 'MVeu5xESZPupQjSOeeAHp5v452fQQkbp', 1681800947, NULL, NULL, '::1', 1681800900, 1681800900, 0, 1681904993, 10, 9),
 (2, 'user', 'user@gmail.com', '$2y$12$zTXbEA76U8Vn5WRvoM4tA.eRwsA6qDuwGTrFnMN2TQRi8vyYBwMfK', 'K12hs9ifzJPvwwjf5Ikn-DnFZt3JM7IV', 1681801332, NULL, NULL, '::1', 1681801332, 1681801345, 0, 1681874280, 10, 1),
 (3, 'actor', 'actor@gmail.com', '$2y$12$749x4yF9QieHXZDQF9HPTOJPwUyvyI762LRLt13jRPQboQouLX0CO', 'l5TJ90uIAxJqGP1JQ3b-SD3jWoLAMgX2', 1681801376, NULL, NULL, '::1', 1681801376, 1681801376, 0, 1681873755, 10, 2),
 (4, 'theerapong', 'theerapong.khan@gmail.com', '$2y$12$KHl/5OYMKramaTPJKL4.N./SwbCT0hVdwakIcCNZ2oIq2QhykzMzK', 'AcwaebQlmk9XCSBTEhX-JXg0qjykK4Df', 1681873998, NULL, NULL, '::1', 1681873998, 1681873998, 0, 1681874085, 10, 1),
 (5, 'sawika', 'sawika@nfc.com', '$2y$12$8DsilwgBW17g80fWdeKyMuIIDfZ1Ga/Uw.aHXkJLRXrpkOo5V25fO', '7Re2CJLDg4b2cAU2iSJujnQ1r9nRoxvD', 1681875396, NULL, NULL, '::1', 1681875358, 1681876835, 0, 1681896505, 10, 1),
 (6, 'sarawut', 'sarawut@nfc.com', '$2y$12$uRutp0e7S7INLacL/Ntba.xoP1XvC8RYjdpL/va7VVymR3zSCcFxe', 'M3m3bd-S5t-C7pz0NhaiZFJKmxyqc6O8', 1681875478, NULL, NULL, '::1', 1681875443, 1681876817, 0, 1681896403, 10, 1);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `auth_assignment`
+--
+ALTER TABLE `auth_assignment`
+  ADD PRIMARY KEY (`item_name`,`user_id`),
+  ADD KEY `idx-auth_assignment-user_id` (`user_id`);
+
+--
+-- Indexes for table `auth_item`
+--
+ALTER TABLE `auth_item`
+  ADD PRIMARY KEY (`name`),
+  ADD KEY `rule_name` (`rule_name`),
+  ADD KEY `idx-auth_item-type` (`type`);
+
+--
+-- Indexes for table `auth_item_child`
+--
+ALTER TABLE `auth_item_child`
+  ADD PRIMARY KEY (`parent`,`child`),
+  ADD KEY `child` (`child`);
+
+--
+-- Indexes for table `auth_rule`
+--
+ALTER TABLE `auth_rule`
+  ADD PRIMARY KEY (`name`);
+
+--
+-- Indexes for table `location`
+--
+ALTER TABLE `location`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `migration`
+--
+ALTER TABLE `migration`
+  ADD PRIMARY KEY (`version`);
+
+--
+-- Indexes for table `profile`
+--
+ALTER TABLE `profile`
+  ADD PRIMARY KEY (`user_id`);
+
+--
+-- Indexes for table `request_sources`
+--
+ALTER TABLE `request_sources`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `social_account`
+--
+ALTER TABLE `social_account`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `account_unique` (`provider`,`client_id`),
+  ADD UNIQUE KEY `account_unique_code` (`code`),
+  ADD KEY `fk_user_account` (`user_id`);
+
+--
+-- Indexes for table `tasks`
+--
+ALTER TABLE `tasks`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_tasks_tickets1_idx` (`tickets_id`);
+
+--
+-- Indexes for table `tickets`
+--
+ALTER TABLE `tickets`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_tickets_tickets_type1_idx` (`tickets_type_id`),
+  ADD KEY `fk_tickets_tickets_status1_idx` (`tickets_status_id`),
+  ADD KEY `fk_tickets_request_sources1_idx` (`request_sources_id`),
+  ADD KEY `fk_tickets_tickets_urgency1_idx` (`tickets_urgency_id`),
+  ADD KEY `fk_tickets_tickets_impact1_idx` (`tickets_impact_id`),
+  ADD KEY `fk_tickets_location1_idx` (`location_id`),
+  ADD KEY `fk_tickets_tickets_priority1_idx` (`tickets_priority_id`);
+
+--
+-- Indexes for table `tickets_impact`
+--
+ALTER TABLE `tickets_impact`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tickets_priority`
+--
+ALTER TABLE `tickets_priority`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tickets_status`
+--
+ALTER TABLE `tickets_status`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tickets_type`
+--
+ALTER TABLE `tickets_type`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tickets_urgency`
+--
+ALTER TABLE `tickets_urgency`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `token`
+--
+ALTER TABLE `token`
+  ADD UNIQUE KEY `token_unique` (`user_id`,`code`,`type`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `user_unique_username` (`username`),
+  ADD UNIQUE KEY `user_unique_email` (`email`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `location`
+--
+ALTER TABLE `location`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `request_sources`
+--
+ALTER TABLE `request_sources`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `social_account`
+--
+ALTER TABLE `social_account`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tasks`
+--
+ALTER TABLE `tasks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `tickets`
+--
+ALTER TABLE `tickets`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `tickets_impact`
+--
+ALTER TABLE `tickets_impact`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `tickets_priority`
+--
+ALTER TABLE `tickets_priority`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `tickets_status`
+--
+ALTER TABLE `tickets_status`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `tickets_type`
+--
+ALTER TABLE `tickets_type`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `tickets_urgency`
+--
+ALTER TABLE `tickets_urgency`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables

@@ -88,6 +88,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'filter' => Html::activeDropDownList($searchModel, 'tickets_status_id', ArrayHelper::map(TicketsStatus::find()->all(), 'id', 'tickets_status'), ['class' => 'form-control', 'prompt' => 'ทั้งหมด...'])
             ],
+            // 'updated_by',
             // ['class' => 'yii\grid\ActionColumn'],
             [
                 'class' => 'kartik\grid\ActionColumn',

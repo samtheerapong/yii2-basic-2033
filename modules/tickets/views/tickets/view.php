@@ -29,20 +29,73 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'request_by',
-            'request_at:date',
+            // 'id',
             'tickets_number',
-            'tickets_type_id',
-            'tickets_status_id',
-            'request_sources_id',
-            'tickets_urgency_id',
-            'tickets_impact_id',
-            'tickets_priority_id',
-            'location_id',
-            'updated_by',
-            'created_at',
-            'updated_at',
+            [
+                'attribute' => 'tickets_status_id',
+                'format' => 'html',
+                'value' => function ($model) {
+                    return '<span class="badge" style="background-color:' . $model->ticketsStatus->color . ';"><b>' . $model->ticketsStatus->tickets_status . '</b></span>';
+                },
+            ],
+            // 'request_by',
+            [ 
+                'attribute' => 'request_by', 
+                'value' => $model->requester->profile->name, 
+            ], 
+            'request_at:date',
+            [
+                'attribute' => 'request_sources_id',
+                'format' => 'html',
+                'value' => function ($model) {
+                    return '<span style="color:' . $model->requestSources->color . ';">' . $model->requestSources->request_sources . '</span>';
+                },
+            ],
+            [
+                'attribute' => 'tickets_type_id',
+                'format' => 'html',
+                'value' => function ($model) {
+                    return $model->ticketsType->tickets_type;
+                },
+            ],
+            [
+                'attribute' => 'tickets_urgency_id',
+                'format' => 'html',
+                'value' => function ($model) {
+                    return '<span style="color:' . $model->ticketsUrgency->color . ';">' . $model->ticketsUrgency->tickets_urgency . '</span>';
+                },
+            ],
+            // 'tickets_impact_id',
+            [
+                'attribute' => 'tickets_impact_id',
+                'format' => 'html',
+                'value' => function ($model) {
+                    return '<span style="color:' . $model->ticketsImpact->color . ';">' . $model->ticketsImpact->tickets_impact . '</span>';
+                },
+            ],
+            // 'tickets_priority_id',
+            [
+                'attribute' => 'tickets_priority_id',
+                'format' => 'html',
+                'value' => function ($model) {
+                    return '<span style="color:' . $model->ticketsPriority->color . ';">' . $model->ticketsPriority->tickets_priority . '</span>';
+                },
+            ],
+            // 'location_id',
+            [
+                'attribute' => 'location_id',
+                'format' => 'html',
+                'value' => function ($model) {
+                    return '<span style="color:' . $model->location->color . ';">' . $model->location->location . '</span>';
+                },
+            ],
+            // 'updated_by',
+            [ 
+                'attribute' => 'updated_by', 
+                'value' => $model->updater->profile->name, 
+            ], 
+            'created_at:date',
+            'updated_at:date',
             'image:ntext',
         ],
     ]) ?>

@@ -3,9 +3,29 @@
 namespace app\modules\tickets\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\behaviors\BlameableBehavior;
+use app\modules\tickets\models\User;
 
 class Tickets extends \yii\db\ActiveRecord
 {
+
+    public function behaviors()
+{
+    return [
+        [
+            'class' => TimestampBehavior::class,
+            'createdAtAttribute' => 'request_at',
+            'createdAtAttribute' => 'created_at',
+            'updatedAtAttribute' => 'updated_at'
+        ],
+        [
+            'class' => BlameableBehavior::class,
+            'createdByAttribute' => 'request_by',
+            'updatedByAttribute' => 'updated_by',
+        ],
+    ];
+}
     /**
      * {@inheritdoc}
      */
@@ -135,5 +155,12 @@ class Tickets extends \yii\db\ActiveRecord
     public function getTicketsUrgency()
     {
         return $this->hasOne(TicketsUrgency::class, ['id' => 'tickets_urgency_id']);
+    }
+
+    public function getRequester(){
+        return $this->hasOne(User::class, ['id' => 'request_by']);
+    }
+    public function getUpdater(){
+        return $this->hasOne(User::class, ['id' => 'updated_by']);
     }
 }

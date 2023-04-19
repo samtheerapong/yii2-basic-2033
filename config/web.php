@@ -5,6 +5,7 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
+    'name' => 'Smart-Ticket',
     'language' => 'th',
     'timeZone' => 'Asia/Bangkok',
     'basePath' => dirname(__DIR__),
@@ -28,7 +29,7 @@ $config = [
         // User
         'user' => [
             'class' => 'dektrium\user\Module',
-            'enableUnconfirmedLogin' => true,
+            'enableUnconfirmedLogin' => false,
             'confirmWithin' => 21600,
             'cost' => 12,
             'admins' => ['admin']
@@ -50,9 +51,12 @@ $config = [
     'as access' => [
         'class' => 'mdm\admin\components\AccessControl',
         'allowActions' => [
-            '*', //Allow All For Dev
+            'user/security/login',
+            'user/security/logout',
+            'user/security/auth',
+            'user/registration/register',
             'site/*',
-            'admin/*',
+            // '*', //Allow All For Dev
         ]
     ],
     'components' => [

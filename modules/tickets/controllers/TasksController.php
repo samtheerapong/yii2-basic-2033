@@ -4,16 +4,15 @@ namespace app\modules\tickets\controllers;
 
 use Yii;
 use app\modules\tickets\models\Tasks;
-use app\modules\tickets\models\Tickets;
-use app\modules\tickets\models\TicketsSearch;
+use app\modules\tickets\models\TasksSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * TicketsController implements the CRUD actions for Tickets model.
+ * TasksController implements the CRUD actions for Tasks model.
  */
-class TicketsController extends Controller
+class TasksController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -31,12 +30,12 @@ class TicketsController extends Controller
     }
 
     /**
-     * Lists all Tickets models.
+     * Lists all Tasks models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new TicketsSearch();
+        $searchModel = new TasksSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -46,7 +45,7 @@ class TicketsController extends Controller
     }
 
     /**
-     * Displays a single Tickets model.
+     * Displays a single Tasks model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -59,43 +58,25 @@ class TicketsController extends Controller
     }
 
     /**
-     * Creates a new Tickets model.
+     * Creates a new Tasks model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $modelTickets = new Tickets();
-        $modelTasks = new Tasks();
+        $model = new Tasks();
 
-        $modelTickets->tickets_status_id = 1;
-        $modelTickets->request_sources_id = 1;
-        $modelTickets->tickets_urgency_id = 1;
-        $modelTickets->tickets_impact_id = 3;
-        $modelTickets->tickets_priority_id = 1;
-        
-        if ($modelTickets->load(Yii::$app->request->post()) 
-            // && $modelTasks->load(Yii::$app->request->post()) 
-            // && Model::validateMultiple([$modelTickets,$modelTasks])
-            ) 
-
-        {
-
-            if($modelTickets->save()){
-                $modelTasks->tickets_id = $modelTickets->id;
-                $modelTasks->save();
-              }
-            return $this->redirect(['view', 'id' => $modelTickets->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
-            'modelTickets' => $modelTickets,
-            'modelTasks' => $modelTasks,
+            'model' => $model,
         ]);
     }
 
     /**
-     * Updates an existing Tickets model.
+     * Updates an existing Tasks model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -103,19 +84,19 @@ class TicketsController extends Controller
      */
     public function actionUpdate($id)
     {
-        $modelTickets = $this->findModel($id);
+        $model = $this->findModel($id);
 
-        if ($modelTickets->load(Yii::$app->request->post()) && $modelTickets->save()) {
-            return $this->redirect(['view', 'id' => $modelTickets->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
-            'modelTickets' => $modelTickets,
+            'model' => $model,
         ]);
     }
 
     /**
-     * Deletes an existing Tickets model.
+     * Deletes an existing Tasks model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -129,15 +110,15 @@ class TicketsController extends Controller
     }
 
     /**
-     * Finds the Tickets model based on its primary key value.
+     * Finds the Tasks model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Tickets the loaded model
+     * @return Tasks the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Tickets::findOne($id)) !== null) {
+        if (($model = Tasks::findOne($id)) !== null) {
             return $model;
         }
 

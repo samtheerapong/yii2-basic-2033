@@ -24,7 +24,7 @@ use app\modules\tickets\models\TicketsPriority;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'request_at')->widget(
+    <?= $form->field($modelTickets, 'request_at')->widget(
         DatePicker::class, [
         'language' => 'th',
         'options' => ['placeholder' => 'Select date ...'],
@@ -36,21 +36,32 @@ use app\modules\tickets\models\TicketsPriority;
     ]
     ); ?>
 
-    <?= $form->field($model, 'tickets_type_id')->dropDownlist(ArrayHelper::map(TicketsType::find()->all(), 'id', 'tickets_type'), ['prompt' => 'กรุณาเลือก ...',]) ?>
+    <?= $form->field($modelTickets, 'tickets_type_id')->dropDownlist(ArrayHelper::map(TicketsType::find()->all(), 'id', 'tickets_type'), ['prompt' => 'กรุณาเลือก ...',]) ?>
 
-    <?= $form->field($model, 'tickets_status_id')->dropDownlist(ArrayHelper::map(TicketsStatus::find()->all(), 'id', 'tickets_status'), ['prompt' => 'กรุณาเลือก ...',]) ?>
+    <?= $form->field($modelTickets, 'tickets_status_id')->dropDownlist(ArrayHelper::map(TicketsStatus::find()->all(), 'id', 'tickets_status'), ['prompt' => 'กรุณาเลือก ...',]) ?>
 
-    <?= $form->field($model, 'request_sources_id')->dropDownlist(ArrayHelper::map(RequestSources::find()->all(), 'id', 'request_sources'), ['prompt' => 'กรุณาเลือก ...',]) ?>
+    <?= $form->field($modelTickets, 'request_sources_id')->dropDownlist(ArrayHelper::map(RequestSources::find()->all(), 'id', 'request_sources'), ['prompt' => 'กรุณาเลือก ...',]) ?>
 
-    <?= $form->field($model, 'tickets_urgency_id')->dropDownlist(ArrayHelper::map(TicketsUrgency::find()->all(), 'id', 'tickets_urgency')) ?>
+    <?= $form->field($modelTickets, 'tickets_urgency_id')->dropDownlist(ArrayHelper::map(TicketsUrgency::find()->all(), 'id', 'tickets_urgency'), ['prompt' => 'กรุณาเลือก ...',]) ?>
 
-    <?= $form->field($model, 'tickets_impact_id')->dropDownlist(ArrayHelper::map(TicketsImpact::find()->all(), 'id', 'tickets_impact')) ?>
+    <?= $form->field($modelTickets, 'tickets_impact_id')->dropDownlist(ArrayHelper::map(TicketsImpact::find()->all(), 'id', 'tickets_impact'), ['prompt' => 'กรุณาเลือก ...',]) ?>
 
-    <?= $form->field($model, 'tickets_priority_id')->dropDownlist(ArrayHelper::map(TicketsPriority::find()->all(), 'id', 'tickets_priority')) ?>
+    <?= $form->field($modelTickets, 'tickets_priority_id')->dropDownlist(ArrayHelper::map(TicketsPriority::find()->all(), 'id', 'tickets_priority'), ['prompt' => 'กรุณาเลือก ...',]) ?>
 
-    <?= $form->field($model, 'location_id')->dropDownlist(ArrayHelper::map(Location::find()->all(), 'id', 'location'), ['prompt' => 'กรุณาเลือก ...',]) ?>
+    <?= $form->field($modelTickets, 'location_id')->dropDownlist(ArrayHelper::map(Location::find()->all(), 'id', 'location'), ['prompt' => 'กรุณาเลือก ...',]) ?>
 
-    <?= $form->field($model, 'image')->textarea(['rows' => 6]) ?>
+    <?= $form->field($modelTickets, 'image')->textarea(['rows' => 3]) ?>
+
+    <!-- Tasks -->
+    <?php //echo $form->field($modelTasks, 'started_at')->textInput(['maxlength' => true]) ?>
+
+    <?php //echo $form->field($modelTasks, 'finished_at')->textInput(['maxlength' => true]) ?>
+
+    <?php //echo $form->field($modelTasks, 'details')->textarea(['rows' => 3]) ?>
+
+    <?php //echo $form->field($modelTasks, 'actor')->textInput(['maxlength' => true]) ?>
+
+    <?php //echo $form->field($modelTasks, 'image')->textarea(['rows' => 3]) ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>

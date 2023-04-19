@@ -66,7 +66,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'tickets_type_id',
                 'format' => 'html',
                 'value' => function ($model) {
-                    return '<span class="badge" style="background-color:' . $model->ticketsType->color . ';"><b>' . $model->ticketsType->tickets_type . '</b></span>';
+                    // return '<span class="badge" style="background-color:' . $model->ticketsType->color . ';"><b>' . $model->ticketsType->tickets_type . '</b></span>';
+                    return $model->ticketsType->tickets_type;
                 },
                 'filter' => Html::activeDropDownList($searchModel, 'tickets_type_id', ArrayHelper::map(TicketsType::find()->all(), 'id', 'tickets_type'), ['class' => 'form-control', 'prompt' => 'ทั้งหมด...'])
             ],
@@ -74,7 +75,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'tickets_urgency_id',
                 'format' => 'html',
                 'value' => function ($model) {
-                    return '<span class="badge" style="background-color:' . $model->ticketsUrgency->color . ';"><b>' . $model->ticketsUrgency->tickets_urgency . '</b></span>';
+                    // return '<span class="badge" style="background-color:' . $model->ticketsUrgency->color . ';"><b>' . $model->ticketsUrgency->tickets_urgency . '</b></span>';
+                    return '<span style="color:' . $model->ticketsUrgency->color . ';"><b>' . $model->ticketsUrgency->tickets_urgency . '</b></span>';
                 },
                 'filter' => Html::activeDropDownList($searchModel, 'tickets_urgency_id', ArrayHelper::map(TicketsUrgency::find()->all(), 'id', 'tickets_urgency'), ['class' => 'form-control', 'prompt' => 'ทั้งหมด...'])
             ],

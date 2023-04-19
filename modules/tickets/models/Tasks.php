@@ -33,11 +33,11 @@ class Tasks extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tickets_id'], 'integer'],
+            // [['tickets_id'], 'integer'],
             [['details', 'image'], 'string'],
             [['started_at', 'finished_at'], 'string', 'max' => 45],
             [['actor'], 'string', 'max' => 200],
-            [['tickets_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tickets::className(), 'targetAttribute' => ['tickets_id' => 'id']],
+            [['tickets_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tickets::class, 'targetAttribute' => ['tickets_id' => 'id']],
         ];
     }
 
@@ -64,6 +64,6 @@ class Tasks extends \yii\db\ActiveRecord
      */
     public function getTickets()
     {
-        return $this->hasOne(Tickets::className(), ['id' => 'tickets_id']);
+        return $this->hasOne(Tickets::class, ['id' => 'tickets_id']);
     }
 }

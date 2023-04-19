@@ -4,29 +4,6 @@ namespace app\modules\tickets\models;
 
 use Yii;
 
-/**
- * This is the model class for table "tickets".
- *
- * @property int $id
- * @property string|null $request_at วันที่เปิด
- * @property int|null $tickets_type_id ประเภท
- * @property int|null $tickets_status_id สถานะ
- * @property int|null $request_sources_id แหล่งที่มา
- * @property int|null $tickets_urgency_id ความเร่งรีบ
- * @property int|null $tickets_impact_id ผลกระทบ
- * @property int|null $tickets_priority_id ความสำคัญ
- * @property int|null $location_id สถานที่
- * @property string|null $image รูปภาพ
- *
- * @property Tasks[] $tasks
- * @property Location $location
- * @property RequestSources $requestSources
- * @property TicketsImpact $ticketsImpact
- * @property TicketsPriority $ticketsPriority
- * @property TicketsStatus $ticketsStatus
- * @property TicketsType $ticketsType
- * @property TicketsUrgency $ticketsUrgency
- */
 class Tickets extends \yii\db\ActiveRecord
 {
     /**
@@ -45,7 +22,6 @@ class Tickets extends \yii\db\ActiveRecord
         return [
             [['tickets_type_id', 'tickets_status_id', 'request_sources_id', 'tickets_urgency_id', 'tickets_impact_id', 'tickets_priority_id', 'location_id'], 'integer'],
             [['image'], 'string'],
-            [['request_at'], 'safe'],
             [['location_id'], 'exist', 'skipOnError' => true, 'targetClass' => Location::class, 'targetAttribute' => ['location_id' => 'id']],
             [['request_sources_id'], 'exist', 'skipOnError' => true, 'targetClass' => RequestSources::class, 'targetAttribute' => ['request_sources_id' => 'id']],
             [['tickets_impact_id'], 'exist', 'skipOnError' => true, 'targetClass' => TicketsImpact::class, 'targetAttribute' => ['tickets_impact_id' => 'id']],
@@ -54,6 +30,7 @@ class Tickets extends \yii\db\ActiveRecord
             [['tickets_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => TicketsType::class, 'targetAttribute' => ['tickets_type_id' => 'id']],
             [['tickets_urgency_id'], 'exist', 'skipOnError' => true, 'targetClass' => TicketsUrgency::class, 'targetAttribute' => ['tickets_urgency_id' => 'id']],
             [['tickets_type_id', 'request_sources_id', 'tickets_urgency_id', 'tickets_impact_id', 'tickets_priority_id', 'location_id'], 'required'],
+            [['request_at','request_by','updated_by','created_at','updated_at'], 'safe'],
         ];
     }
 
@@ -72,7 +49,11 @@ class Tickets extends \yii\db\ActiveRecord
             'tickets_impact_id' => Yii::t('app', 'ผลกระทบ'),
             'tickets_priority_id' => Yii::t('app', 'ความสำคัญ'),
             'location_id' => Yii::t('app', 'สถานที่'),
-            'image' => Yii::t('app', 'รูปภาพ'),
+            'request_by' => Yii::t('app', 'ผู้แจ้ง'),
+            'updated_by' => Yii::t('app', 'ผู้ปรับปรุง'),
+            'created_at' => Yii::t('app', 'วันที่สร้าง'),
+            'updated_at' => Yii::t('app', 'วันที่ปรับปรุง'),
+            'tickets_number' => Yii::t('app', 'เลขที่'),
         ];
     }
 

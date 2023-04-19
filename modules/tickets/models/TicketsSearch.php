@@ -69,7 +69,11 @@ class TicketsSearch extends Tickets
         ]);
 
         $query->andFilterWhere(['like', 'request_at', $this->request_at])
-            ->andFilterWhere(['like', 'image', $this->image]);
+        ->andFilterWhere(['like', 'request_by', $this->request_by])
+        ->andFilterWhere(['like', 'updated_by', $this->updated_by])
+        ->andFilterWhere(['like', 'created_at', $this->created_at])
+        ->andFilterWhere(['like', 'updated_at', $this->updated_at])
+        ->andFilterWhere(['like', 'tickets_number', $this->tickets_number]);
 
         return $dataProvider;
     }

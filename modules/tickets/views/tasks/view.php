@@ -4,14 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\modules\tickets\models\Tickets */
+/* @var $model app\modules\tickets\models\Tasks */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Tickets'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Tasks'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="tickets-view">
+<div class="tasks-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -30,19 +30,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'request_by',
-            'request_at:date',
-            'tickets_number',
-            'tickets_type_id',
-            'tickets_status_id',
-            'request_sources_id',
-            'tickets_urgency_id',
-            'tickets_impact_id',
-            'tickets_priority_id',
-            'location_id',
-            'updated_by',
-            'created_at',
-            'updated_at',
+            'tickets_id',
+            'started_at',
+            'finished_at',
+            'details:ntext',
+            'actor',
             'image:ntext',
         ],
     ]) ?>

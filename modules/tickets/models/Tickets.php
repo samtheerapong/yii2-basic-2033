@@ -49,8 +49,8 @@ class Tickets extends \yii\db\ActiveRecord
             [['tickets_status_id'], 'exist', 'skipOnError' => true, 'targetClass' => TicketsStatus::class, 'targetAttribute' => ['tickets_status_id' => 'id']],
             [['tickets_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => TicketsType::class, 'targetAttribute' => ['tickets_type_id' => 'id']],
             [['tickets_urgency_id'], 'exist', 'skipOnError' => true, 'targetClass' => TicketsUrgency::class, 'targetAttribute' => ['tickets_urgency_id' => 'id']],
-            [['tickets_type_id', 'request_sources_id', 'tickets_urgency_id', 'tickets_impact_id', 'tickets_priority_id', 'location_id'], 'required'],
             [['request_at','request_by','updated_by','created_at','updated_at'], 'safe'],
+            [['request_at','tickets_status_id','tickets_type_id', 'request_sources_id', 'tickets_urgency_id', 'tickets_impact_id', 'tickets_priority_id', 'location_id'], 'required'],
         ];
     }
 

@@ -67,12 +67,13 @@ class TicketsController extends Controller
     {
         $modelTickets = new Tickets();
         $modelTasks = new Tasks();
-
+        
+        $modelTickets->tickets_type_id = 1;
         $modelTickets->tickets_status_id = 1;
         $modelTickets->request_sources_id = 1;
-        $modelTickets->tickets_urgency_id = 1;
+        $modelTickets->tickets_urgency_id = 3;
         $modelTickets->tickets_impact_id = 3;
-        $modelTickets->tickets_priority_id = 1;
+        $modelTickets->tickets_priority_id = 3;
         
         if ($modelTickets->load(Yii::$app->request->post()) 
             // && $modelTasks->load(Yii::$app->request->post()) 

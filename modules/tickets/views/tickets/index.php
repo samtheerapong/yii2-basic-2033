@@ -9,8 +9,12 @@ use app\modules\tickets\models\TicketsType;
 use app\modules\tickets\models\TicketsStatus;
 use app\modules\tickets\models\RequestSources;
 use app\modules\tickets\models\Location;
+use app\modules\tickets\models\Tickets;
 use app\modules\tickets\models\TicketsImpact;
 use app\modules\tickets\models\TicketsUrgency;
+
+//
+use kartik\date\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\tickets\models\TicketsSearch */
@@ -37,27 +41,27 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             // 'id',
-            'request_at:date',
+            [
+                'attribute' => 'request_at',
+                'format' => 'date',
+                'value' => 'request_at',
+                'filter' => DatePicker::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'request_at',
+                    'pluginOptions' => [
+                        'format' => 'yyyy-mm-dd',
+                        'autoclose' => true,
+                    ]
+                ])
+            ],
             [
                 'attribute' => 'tickets_type_id',
                 'format' => 'html',
                 'value' => function ($model) {
-                    return $model->ticketsType->tickets_type;
+                    return '<span class="badge" style="background-color:' . $model->ticketsType->color . ';"><b>' . $model->ticketsType->tickets_type . '</b></span>';
                 },
                 'filter' => Html::activeDropDownList($searchModel, 'tickets_type_id', ArrayHelper::map(TicketsType::find()->all(), 'id', 'tickets_type'), ['class' => 'form-control', 'prompt' => 'ทั้งหมด...'])
             ],
-            // 'tickets_type_id',
-            // 'tickets_status_id',
-            // 'request_sources_id',
-            [
-                'attribute' => 'request_sources_id',
-                'format' => 'html',
-                'value' => function ($model) {
-                    return $model->requestSources->request_sources;
-                },
-                'filter' => Html::activeDropDownList($searchModel, 'request_sources_id', ArrayHelper::map(RequestSources::find()->all(), 'id', 'request_sources'), ['class' => 'form-control', 'prompt' => 'ทั้งหมด...'])
-            ],
-            // 'location_id',
             [
                 'attribute' => 'location_id',
                 'format' => 'html',
@@ -65,15 +69,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->location->location;
                 },
                 'filter' => Html::activeDropDownList($searchModel, 'location_id', ArrayHelper::map(Location::find()->all(), 'id', 'location'), ['class' => 'form-control', 'prompt' => 'ทั้งหมด...'])
-            ],
-            // 'tickets_priority_id',
-            [
-                'attribute' => 'tickets_impact_id',
-                'format' => 'html',
-                'value' => function ($model) {
-                    return '<span class="badge" style="background-color:' . $model->ticketsImpact->color . ';"><b>' . $model->ticketsImpact->tickets_impact . '</b></span>';
-                },
-                'filter' => Html::activeDropDownList($searchModel, 'tickets_impact_id', ArrayHelper::map(TicketsImpact::find()->all(), 'id', 'tickets_impact'), ['class' => 'form-control', 'prompt' => 'ทั้งหมด...'])
             ],
             [
                 'attribute' => 'tickets_urgency_id',
@@ -91,14 +86,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'filter' => Html::activeDropDownList($searchModel, 'tickets_status_id', ArrayHelper::map(TicketsStatus::find()->all(), 'id', 'tickets_status'), ['class' => 'form-control', 'prompt' => 'ทั้งหมด...'])
             ],
-            //'tickets_urgency_id',
-            //'tickets_impact_id',
-            //'image:ntext',
-
             // ['class' => 'yii\grid\ActionColumn'],
             [
                 'class' => 'kartik\grid\ActionColumn',
-                'options' => ['style' => 'width:120px;'],
+                'options' => ['style' => 'width:100px;'],
                 'buttonOptions' => ['class' => 'btn btn-default'],
                 'template' => '<div class="btn-group btn-group-xs text-center" role="group"> {view} {update} {delete}</div>'
             ],

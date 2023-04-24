@@ -2,6 +2,9 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use kartik\date\DatePicker;
+use app\modules\tickets\models\Tickets;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\tickets\models\Tasks */
@@ -12,11 +15,33 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'tickets_id')->textInput() ?>
+    <?= $form->field($model, 'tickets_id')->dropDownlist(ArrayHelper::map(Tickets::find()->all(), 'id', 'tickets_number'), ['prompt' => 'กรุณาเลือก ...',]) ?>
 
-    <?= $form->field($model, 'started_at')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'started_at')->widget(
+        DatePicker::class,
+        [
+            'language' => 'th',
+            'options' => ['placeholder' => 'Select date ...'],
+            'pluginOptions' => [
+                'format' => 'yyyy-mm-dd',
+                'todayHighlight' => true,
+                'autoclose' => true,
+            ]
+        ]
+    ); ?>
 
-    <?= $form->field($model, 'finished_at')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'finished_at')->widget(
+        DatePicker::class,
+        [
+            'language' => 'th',
+            'options' => ['placeholder' => 'Select date ...'],
+            'pluginOptions' => [
+                'format' => 'yyyy-mm-dd',
+                'todayHighlight' => true,
+                'autoclose' => true,
+            ]
+        ]
+    ); ?>
 
     <?= $form->field($model, 'details')->textarea(['rows' => 6]) ?>
 

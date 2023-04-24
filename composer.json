@@ -25,7 +25,8 @@
         "kartik-v/yii2-widgets": "dev-master",
         "kartik-v/yii2-grid": "^3.5",
         "wbraganca/yii2-dynamicform": "^2.0",
-        "dmstr/yii2-adminlte-asset": "^2.6"
+        "dmstr/yii2-adminlte-asset": "^2.6",
+        "mdmsoft/yii2-autonumber": "^1.5"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

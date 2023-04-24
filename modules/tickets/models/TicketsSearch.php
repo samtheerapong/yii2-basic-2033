@@ -18,7 +18,7 @@ class TicketsSearch extends Tickets
     {
         return [
             [['id', 'tickets_type_id', 'tickets_status_id', 'request_sources_id', 'tickets_urgency_id', 'tickets_impact_id', 'tickets_priority_id', 'location_id'], 'integer'],
-            [['request_at', 'image'], 'safe'],
+            [['request_at', 'image','tickets_number','request_by'], 'safe'],
         ];
     }
 

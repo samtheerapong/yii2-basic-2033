@@ -11,21 +11,29 @@ class Tickets extends \yii\db\ActiveRecord
 {
 
     public function behaviors()
-{
-    return [
-        [
-            'class' => TimestampBehavior::class,
-            'createdAtAttribute' => 'request_at',
-            'createdAtAttribute' => 'created_at',
-            'updatedAtAttribute' => 'updated_at'
-        ],
-        [
-            'class' => BlameableBehavior::class,
-            'createdByAttribute' => 'request_by',
-            'updatedByAttribute' => 'updated_by',
-        ],
-    ];
-}
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                'createdAtAttribute' => 'request_at',
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at'
+            ],
+            [
+                'class' => BlameableBehavior::class,
+                'createdByAttribute' => 'request_by',
+                'updatedByAttribute' => 'updated_by',
+            ],
+            [
+                // https://github.com/mdmsoft/yii2-autonumber
+                'class' => 'mdm\autonumber\Behavior',
+                'attribute' => 'tickets_number', // required
+                'group' => $this->tickets_number, // optional
+                'value' => 'JOB-' . date('Ymd') . '-?', // format auto number. '?' will be replaced with generated number
+                'digit' => 4 // optional, default to null. 
+            ],
+        ];
+    }
     /**
      * {@inheritdoc}
      */
@@ -49,8 +57,9 @@ class Tickets extends \yii\db\ActiveRecord
             [['tickets_status_id'], 'exist', 'skipOnError' => true, 'targetClass' => TicketsStatus::class, 'targetAttribute' => ['tickets_status_id' => 'id']],
             [['tickets_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => TicketsType::class, 'targetAttribute' => ['tickets_type_id' => 'id']],
             [['tickets_urgency_id'], 'exist', 'skipOnError' => true, 'targetClass' => TicketsUrgency::class, 'targetAttribute' => ['tickets_urgency_id' => 'id']],
-            [['request_at','request_by','updated_by','created_at','updated_at'], 'safe'],
-            [['request_at','tickets_status_id','tickets_type_id', 'request_sources_id', 'tickets_urgency_id', 'tickets_impact_id', 'tickets_priority_id', 'location_id'], 'required'],
+            [['request_at', 'request_by', 'updated_by', 'created_at', 'updated_at'], 'safe'],
+            [['request_at', 'tickets_status_id', 'tickets_type_id', 'request_sources_id', 'tickets_urgency_id', 'tickets_impact_id', 'tickets_priority_id', 'location_id'], 'required'],
+            [['tickets_number'], 'autonumber', 'format' => 'JOB-' . date('Ymd') . '-?'],
         ];
     }
 
@@ -157,10 +166,13 @@ class Tickets extends \yii\db\ActiveRecord
         return $this->hasOne(TicketsUrgency::class, ['id' => 'tickets_urgency_id']);
     }
 
-    public function getRequester(){
+    public function getRequester()
+    {
         return $this->hasOne(User::class, ['id' => 'request_by']);
     }
-    public function getUpdater(){
+    
+    public function getUpdater()
+    {
         return $this->hasOne(User::class, ['id' => 'updated_by']);
     }
 }

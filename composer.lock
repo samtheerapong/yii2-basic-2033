@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5a963b23e65f3d1baa0ed0e145cbc049",
+    "content-hash": "0c6b9365bc69b3288f6c860316b09f1a",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -2361,6 +2361,58 @@
                 "source": "https://github.com/mdmsoft/yii2-admin"
             },
             "time": "2020-12-31T06:48:57+00:00"
+        },
+        {
+            "name": "mdmsoft/yii2-autonumber",
+            "version": "1.5.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mdmsoft/yii2-autonumber.git",
+                "reference": "7e7f5bf567dc949635d8890b25c6d98b1b270bb2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mdmsoft/yii2-autonumber/zipball/7e7f5bf567dc949635d8890b25c6d98b1b270bb2",
+                "reference": "7e7f5bf567dc949635d8890b25c6d98b1b270bb2",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "~2.0"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "bootstrap": "mdm\\autonumber\\Bootstrap",
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "mdm\\autonumber\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Misbahul D Munir",
+                    "email": "misbahuldmunir@gmail.com"
+                }
+            ],
+            "description": "Auto number extension for the Yii framework",
+            "keywords": [
+                " autonumber",
+                " behavior",
+                " extension",
+                "yii2"
+            ],
+            "support": {
+                "issues": "https://github.com/mdmsoft/yii2-autonumber/issues",
+                "source": "https://github.com/mdmsoft/yii2-autonumber/tree/1.5.2"
+            },
+            "time": "2019-11-20T02:29:57+00:00"
         },
         {
             "name": "paragonie/random_compat",

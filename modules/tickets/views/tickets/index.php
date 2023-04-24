@@ -10,8 +10,9 @@ use app\modules\tickets\models\TicketsStatus;
 use app\modules\tickets\models\RequestSources;
 use app\modules\tickets\models\Location;
 use app\modules\tickets\models\TasksSearch;
-use app\modules\tickets\models\Tickets;
+use app\modules\tickets\models\User;
 use app\modules\tickets\models\TicketsImpact;
+use app\modules\tickets\models\Profile;
 use app\modules\tickets\models\TicketsUrgency;
 
 //
@@ -55,10 +56,20 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Yii::$app->controller->renderPartial('_tasks', [
                         'searchModel' => $searchModel,
                         'dataProvider' => $dataProvider,
-                        ]);
+                    ]);
                 },
             ],
             // 'id',
+            'tickets_number',
+            // 'request_by',
+            [
+                'attribute' => 'request_by',
+                'format' => 'html',
+                'value' => function ($model) {
+                    return $model->requester->profile->name;
+                },
+                // 'filter' => Html::activeDropDownList($searchModel,'id',ArrayHelper::map(Profile::find()->all(), 'id', 'name'),['class' => 'form-control', 'prompt' => 'ทั้งหมด']),
+            ],
             [
                 'attribute' => 'request_at',
                 'format' => 'date',

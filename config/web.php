@@ -19,7 +19,7 @@ $config = [
         'tickets' => [
             'class' => 'app\modules\tickets\Module',
         ],
-        
+
         // Admin
         'admin' => [
             'class' => 'mdm\admin\Module',
@@ -60,6 +60,13 @@ $config = [
         ]
     ],
     'components' => [
+        'view' => [
+            'theme' => [
+                'pathMap' => [
+                    '@app/views' => '@app/themes/adminlte'
+                ]
+            ]
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'UQdavS8eoMPWG87taZSbL500kapUhpB8',

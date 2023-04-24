@@ -22,7 +22,7 @@ use yii\web\Request;
 /* @var $searchModel app\modules\tickets\models\TicketsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Tickets');
+$this->title = Yii::t('app', 'Ticket');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tickets-index">
@@ -40,9 +40,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            // ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\SerialColumn'],
             [
-                'class' => 'kartik\grid\ExpandRowColumn',
+                'class' => 'kartik\grid\ExpandRowColumn',   //https://youtu.be/7u0p8fKriy0
                 'value' => function ($model, $key, $index, $column) {
                     return GridView::ROW_COLLAPSED;
                 },

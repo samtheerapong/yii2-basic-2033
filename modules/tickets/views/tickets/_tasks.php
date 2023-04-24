@@ -20,7 +20,7 @@ $this->title = Yii::t('app', 'Tasks');
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'tickets_id',
+            // 'tickets_id',
             // 'started_at:date',
             [
                 'attribute' => 'started_at',

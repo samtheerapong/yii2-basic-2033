@@ -9,12 +9,14 @@ use app\modules\tickets\models\TicketsType;
 use app\modules\tickets\models\TicketsStatus;
 use app\modules\tickets\models\RequestSources;
 use app\modules\tickets\models\Location;
+use app\modules\tickets\models\TasksSearch;
 use app\modules\tickets\models\Tickets;
 use app\modules\tickets\models\TicketsImpact;
 use app\modules\tickets\models\TicketsUrgency;
 
 //
 use kartik\date\DatePicker;
+use yii\web\Request;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\tickets\models\TicketsSearch */
@@ -38,8 +40,24 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            // ['class' => 'yii\grid\SerialColumn'],
+            [
+                'class' => 'kartik\grid\ExpandRowColumn',
+                'value' => function ($model, $key, $index, $column) {
+                    return GridView::ROW_COLLAPSED;
+                },
+                'detail' => function ($model, $key, $index, $column) {
+                    $searchModel = new TasksSearch();
+                    $searchModel->tickets_id = $model->id;
+                    $dataProvider =  $searchModel->search(Yii::$app->request->queryParams);
 
+
+                    return Yii::$app->controller->renderPartial('_tasks', [
+                        'searchModel' => $searchModel,
+                        'dataProvider' => $dataProvider,
+                        ]);
+                },
+            ],
             // 'id',
             [
                 'attribute' => 'request_at',
